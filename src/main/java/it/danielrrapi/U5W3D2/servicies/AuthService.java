@@ -35,7 +35,7 @@ public class AuthService {
         dipendenteDAO.findByEmail(payload.email()).ifPresent(dipendente -> {
             throw new BadRequestException("L'email " + payload.email() + " è gia in uso!");
         });
-        Dipendente newDipendente = new Dipendente(payload.username(), payload.name(), payload.cognome(), payload.email(), payload.password());
+        Dipendente newDipendente = new Dipendente(payload.username(), payload.name(), payload.cognome(), payload.email(), bcrypt.encode(payload.password()));
         return dipendenteDAO.save(newDipendente);
     }
 }
